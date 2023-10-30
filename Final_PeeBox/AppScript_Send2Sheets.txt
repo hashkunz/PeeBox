@@ -1,0 +1,32 @@
+function doPost(e) {
+  var ss = SpreadsheetApp.openById('ID GOOGLE SHEET'); // Replace with your Spreadsheet ID
+  var sheet = ss.getSheetByName('sheet1'); // Replace with your sheet name
+  var params1 = "";
+  var params2 = "";
+
+  if (e.parameters.hasOwnProperty('params1')) {
+    params1 = e.parameters.params1;
+    sheet.getRange('A1').setValue(params1);
+    return ContentService.createTextOutput(params1).setMimeType(ContentService.MimeType.TEXT);
+  } 
+  if (e.parameters.hasOwnProperty('params2')) {
+    params2 = e.parameters.params2;
+    sheet.getRange('A2').setValue(params2);
+    return ContentService.createTextOutput(params2).setMimeType(ContentService.MimeType.TEXT);
+  } else {
+    return ContentService.createTextOutput("Error").setMimeType(ContentService.MimeType.TEXT);
+  }
+}
+
+
+
+function doGet(e){
+  var ss = SpreadsheetApp.openById('ID GOOGLE SHEET');
+  var sheet = ss.getSheetByName('sheet1');
+  var read = e.parameter.read;
+  if (read !== undefined){
+    var PId = "";
+    PId = sheet.getRange('A1').getValue();
+    return ContentService.createTextOutput("PersonId is : "+PId);
+  }
+}
